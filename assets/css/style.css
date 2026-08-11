@@ -210,7 +210,7 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
 .sobre-chips div{background:var(--sol-50);border:1px solid var(--borda);border-radius:14px;padding:14px 10px;text-align:center}
 .sobre-chips b{display:block;font-family:'Fraunces',serif;font-size:1.2rem;color:var(--sol-700);line-height:1}
 .sobre-chips small{display:block;margin-top:5px;font-size:.66rem;color:var(--texto-suave);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.sobre-art{position:relative;border-radius:var(--raio-lg);overflow:hidden;box-shadow:var(--sombra);min-height:400px}
+.sobre-art{position:relative;border-radius:var(--raio-lg);overflow:hidden;box-shadow:var(--sombra)}
 .sobre-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
 /* ---------- Cards genericos ---------- */
@@ -233,17 +233,11 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
 /* Blocos de categoria: as duas colunas comecam e terminam na mesma linha */
 .gal-bloco{
   display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,4.5vw,56px);
-  align-items:stretch;min-height:min(560px,68vh);
+  align-items:stretch;
 }
 .gal-bloco + .gal-bloco{margin-top:clamp(46px,6vw,76px)}
 .gal-bloco.invertido .gal-txt{order:2}
 .gal-txt{display:flex;flex-direction:column}
-.gal-num{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:42px;height:42px;border-radius:12px;margin-bottom:16px;flex-shrink:0;align-self:flex-start;
-  background:rgba(245,180,95,.16);border:1px solid rgba(245,180,95,.4);
-  font-family:'Fraunces',serif;font-size:1.05rem;color:var(--sol-200);
-}
 .gal-txt h3{font-size:clamp(1.3rem,2.3vw,1.7rem);color:#fff;margin-bottom:14px}
 .gal-txt p{color:rgba(255,255,255,.76);font-size:.96rem;max-width:46ch}
 .gal-txt p + p{margin-top:12px}
@@ -338,7 +332,7 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
 .quartos{background:var(--papel)}
 .quartos-grid{
   display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,4.5vw,54px);
-  align-items:stretch;min-height:min(540px,66vh);
+  align-items:stretch;
 }
 .quartos .car-viewport{box-shadow:var(--sombra)}
 .quartos-lista{display:flex;flex-direction:column;gap:11px}
