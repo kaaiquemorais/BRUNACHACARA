@@ -628,10 +628,17 @@ footer a:hover{color:var(--sol-400)}
 
 /* ===================== RESPONSIVO ===================== */
 
-@media (max-width:1060px){
-}
-
 @media (max-width:900px){
+  /* Empilhado: tudo centralizado */
+  .gal-txt,.sobre-txt,.local-txt{text-align:center;align-items:center}
+  .gal-txt p,.sobre-txt p,.local-txt .lead{max-width:52ch;margin-inline:auto}
+  .gal-itens,.quartos-mais{justify-content:center}
+  .car-pe{justify-content:center}
+  .car-contador{margin-left:0}
+  .quartos-lista .dica{justify-content:center}
+  .quarto-item{text-align:center;border-left-width:1px}
+  .quarto-item:hover{transform:translateY(-3px)}
+  .spot{text-align:left}
   .gal-bloco,.quartos-grid{grid-template-columns:1fr;max-width:620px;margin-inline:auto;min-height:0;display:grid}
   .gal-bloco.invertido .gal-txt{order:2}
   .gal-bloco .car-viewport,.quartos-grid .car-viewport{order:-1;height:auto;aspect-ratio:4/5}
@@ -650,6 +657,21 @@ footer a:hover{color:var(--sol-400)}
 }
 
 @media (max-width:760px){
+  /* Cards centralizados no mobile */
+  .perk,.at-body,.q-body,.reg-card,.f-item,.atalho{text-align:center}
+  .perk-ico{margin-inline:auto}
+  .perk,.q-body{align-items:center}
+  .q-tag,.at-tag{align-self:center}
+  .reg-card h3{justify-content:center}
+  .reg-card li{padding-left:0}
+  .reg-card li::before{display:none}
+  .atalho{justify-content:center;gap:9px}
+  .sec-head{text-align:center}
+  .sec-head .lead{margin-inline:auto}
+  .host-grid{text-align:center}
+  .host p{margin-inline:auto}
+  .spot{flex-direction:column;text-align:center;gap:9px}
+  .spot .ico{margin-inline:auto}
   .nav-inner{justify-content:flex-end}
   :root{--nav-h:64px}
   .nav-links{
@@ -659,7 +681,8 @@ footer a:hover{color:var(--sol-400)}
     align-items:stretch;border-bottom:1px solid var(--borda);max-height:calc(100vh - var(--nav-h));overflow-y:auto;
   }
   .nav.open .nav-links{transform:translateY(0)}
-  .nav-links a:not(.btn){color:var(--sol-800)!important;text-shadow:none!important;padding:13px 0;border-bottom:1px solid var(--borda);font-size:.95rem}
+  .nav-links a:not(.btn){color:var(--sol-800)!important;text-shadow:none!important;padding:13px 0;border-bottom:1px solid var(--borda);font-size:.95rem;text-align:center}
+  .nav-links a:not(.btn)::after{display:none}
   .nav-links .btn{margin-top:14px;background:linear-gradient(135deg,var(--sol-600),var(--sol-500))!important;color:#fff!important;border-color:transparent!important;justify-content:center}
   .nav.open{background:rgba(255,255,255,.97);backdrop-filter:blur(16px)}
   .nav.open .logo{color:var(--sol-900);text-shadow:none}
