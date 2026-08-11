@@ -254,8 +254,12 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
 .car-slide{position:relative;min-width:100%;height:100%;cursor:zoom-in}
 .car-slide img{width:100%;height:100%;object-fit:cover;display:block}
 
-/* Controles fora da imagem, no rodape da coluna de texto */
-.car-pe{display:flex;align-items:center;gap:16px;margin-top:auto;padding-top:26px}
+/* Coluna da imagem: foto ocupa a altura toda e os controles ficam logo abaixo */
+.car-col{display:flex;flex-direction:column;min-width:0}
+.car-col .car-viewport{flex:1;min-height:0}
+.car-pe{display:flex;align-items:center;gap:16px;height:44px;flex-shrink:0;padding-top:14px}
+/* a coluna de texto reserva a mesma altura, para a foto terminar na linha do texto */
+.gal-txt,.quartos-lista{padding-bottom:44px}
 .car-nav{display:flex;align-items:center;gap:6px}
 .car-btn{
   width:24px;height:24px;display:grid;place-items:center;
@@ -641,8 +645,10 @@ footer a:hover{color:var(--sol-400)}
   .spot{text-align:left}
   .gal-bloco,.quartos-grid{grid-template-columns:1fr;max-width:620px;margin-inline:auto;min-height:0;display:grid}
   .gal-bloco.invertido .gal-txt{order:2}
-  .gal-bloco .car-viewport,.quartos-grid .car-viewport{order:-1;height:auto;aspect-ratio:4/5}
-  .car-pe{padding-top:22px}
+  .gal-bloco .car-col,.quartos-grid .car-col{order:-1}
+  .gal-bloco .car-viewport,.quartos-grid .car-viewport{height:auto;aspect-ratio:4/5;flex:none}
+  .gal-txt,.quartos-lista{padding-bottom:0}
+  .car-pe{justify-content:center;padding-top:16px;height:auto}
   :root{--gap:18px}
   .grid-3,.faq-atalhos{grid-template-columns:repeat(2,1fr)}
   .sobre-grid,.local-grid{grid-template-columns:1fr}
