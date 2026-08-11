@@ -251,12 +251,12 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
 /* trilho fora do fluxo: as fotos nao empurram a altura da linha */
 .car-trilho{position:absolute;inset:0;display:flex;transition:transform .6s cubic-bezier(.22,1,.36,1)}
 .car-slide{position:relative;min-width:100%;height:100%;cursor:zoom-in}
-/* foto inteira, sem corte, na proporcao original */
-.car-slide img{width:100%;height:100%;object-fit:contain;display:block}
+.car-slide img{width:100%;height:100%;object-fit:cover;display:block}
 
-/* Coluna da imagem: foto ocupa a altura toda e os controles ficam logo abaixo */
-.car-col{display:flex;flex-direction:column;min-width:0}
-.car-col .car-viewport{flex:1;height:0;min-height:0}
+/* Coluna da imagem: o quadro segue a proporcao das fotos (3:4), sem sobra */
+.car-col{display:flex;flex-direction:column;align-items:center;min-width:0}
+.car-col .car-viewport{flex:1;height:0;min-height:0;aspect-ratio:3/4;width:auto;max-width:100%}
+.car-col .car-pe{align-self:stretch;justify-content:center}
 .car-pe{display:flex;align-items:center;gap:16px;height:44px;flex-shrink:0;padding-top:14px}
 /* a coluna de texto reserva a mesma altura, para a foto terminar na linha do texto */
 .gal-txt,.quartos-lista{padding-bottom:44px}
@@ -651,7 +651,7 @@ footer a:hover{color:var(--sol-400)}
   .gal-bloco .gal-txt,.gal-bloco.invertido .gal-txt{order:1}
   .gal-bloco .car-col,.gal-bloco.invertido .car-col{order:2}
   .quartos-grid .car-col{order:-1}
-  .gal-bloco .car-viewport,.quartos-grid .car-viewport{height:auto;aspect-ratio:4/5;flex:none;max-height:none}
+  .gal-bloco .car-viewport,.quartos-grid .car-viewport{height:auto;aspect-ratio:3/4;flex:none;width:100%}
   .gal-txt,.quartos-lista{padding-bottom:0}
   .car-pe{justify-content:center;padding-top:16px;height:auto}
   :root{--gap:18px}
