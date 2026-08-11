@@ -58,7 +58,7 @@ Seguir sempre, em qualquer alteração futura:
 4. `#espaco`: texto + foto em colunas de altura idêntica.
 5. Diferenciais, 6 cards em `.grid-3`.
 6. `#galeria`: 4 blocos de categoria (Piscina e deck, Rancho e área gourmet, Sala e cozinha,
-   Terreno e vista). Cada bloco tem número, título, texto, chips e carrossel.
+   Terreno e vista). Cada bloco tem título, texto, chips e carrossel, sem numeração.
 7. `#comodidades`: faixa animada em 2 linhas opostas + bloco do pomar.
 8. Quartos: carrossel de 5 fotos (3 quartos + 2 banheiros) com lista lateral que navega.
 9. `#avaliacoes`: carrossel com as 22 avaliações em duas linhas opostas, cards retangulares.
@@ -100,7 +100,7 @@ Fechar: X, botão Voltar, clique fora ou ESC (`data-fechar`).
 
 ## Contato
 
-WhatsApp **+55 19 99401-3782**, no código como `5519994013782` (constante `WHATS` no JS
+Anfitriã: **Bruna Mazeto**. WhatsApp **+55 19 99401-3782**, no código como `5519994013782` (constante `WHATS` no JS
 e nos links diretos do rodapé e do botão flutuante).
 
 ## Deploy
