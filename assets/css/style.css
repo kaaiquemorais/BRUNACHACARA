@@ -253,7 +253,9 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
   box-shadow:0 20px 50px -24px rgba(42,26,18,.65);
 }
 .car-slide img{width:100%;height:100%;object-fit:cover;display:block}
-.quartos .car-slide{background:var(--sol-100);box-shadow:var(--sombra)}
+/* Acomodacao: uma foto por vez, preenchendo a coluna inteira */
+.quartos .car-trilho{gap:0}
+.quartos .car-slide{flex:0 0 100%;background:var(--sol-100);border-radius:0;box-shadow:none}
 
 /* Coluna da imagem: fotos em cima, controles logo abaixo */
 .car-col{display:flex;flex-direction:column;min-width:0}
@@ -340,7 +342,7 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
   display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,4.5vw,54px);
   align-items:stretch;
 }
-.quartos .car-viewport{box-shadow:var(--sombra);background:var(--sol-100)}
+.quartos .car-viewport{border-radius:var(--raio-lg);box-shadow:var(--sombra);background:var(--sol-100)}
 .quartos-lista{display:flex;flex-direction:column;gap:11px}
 .quartos-lista .dica{
   display:flex;align-items:center;gap:8px;margin-bottom:4px;
@@ -726,6 +728,20 @@ footer a:hover{color:var(--sol-400)}
   .lb-prev{left:8px}.lb-next{right:8px}
   .lb-btn{width:40px;height:40px}
   .lb-close{right:12px;top:12px}
+
+  /* ---- Mobile: tudo centralizado ---- */
+  body,section,footer,.wrap{text-align:center}
+  h1,h2,h3,h4,p,li,small,.lead,.eyebrow,.dica,.faq-q,.quarto-item,.r-card,.spot,
+  .campo>label,.previa h4,.modal-pe,.cta-mini,.f-bottom{text-align:center}
+  .hero-content,.gal-txt,.sobre-txt,.local-txt,.quartos-lista,.car-col,
+  .perk,.q-body,.at-body,.host-grid,.faq-item{align-items:center}
+  p,.lead,.host p,.gal-txt p,.sobre-txt p,.at-body p,.perk p,.r-card p{margin-inline:auto}
+  .eyebrow,.q-tag,.at-tag,.voltar,.host-photo{align-self:center;margin-inline:auto}
+  .car-pe,.car-nav,.hero-ctas,.cta-btns,.modal-acoes,.opcoes,.quartos-mais,
+  .frutas,.sobre-chips,.r-topo,.reg-card h3,.f-bottom,.faq-q{justify-content:center}
+  .reg-card ul,footer ul{justify-items:center}
+  /* textos longos de leitura seguem alinhados a esquerda */
+  .previa pre,.campo input,.campo textarea{text-align:left}
 }
 
 @media (max-width:560px){
