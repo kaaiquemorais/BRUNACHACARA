@@ -242,21 +242,22 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
 .gal-txt p{color:rgba(255,255,255,.76);font-size:.96rem;max-width:46ch}
 .gal-txt p + p{margin-top:12px}
 
-/* A imagem ocupa exatamente a altura da coluna de texto */
-.car-viewport{
-  position:relative;overflow:hidden;border-radius:var(--raio-lg);
-  box-shadow:0 24px 60px -24px rgba(0,0,0,.6);background:var(--sol-800);
-  height:100%;
-}
+/* Duas fotos lado a lado: mantem o formato retrato, preenche a coluna
+   inteira e a altura vem so do bloco de texto ao lado */
+.car-viewport{position:relative;overflow:hidden;height:100%;width:100%}
 /* trilho fora do fluxo: as fotos nao empurram a altura da linha */
-.car-trilho{position:absolute;inset:0;display:flex;transition:transform .6s cubic-bezier(.22,1,.36,1)}
-.car-slide{position:relative;min-width:100%;height:100%;cursor:zoom-in}
+.car-trilho{position:absolute;inset:0;display:flex;gap:12px;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.car-slide{
+  flex:0 0 calc(50% - 6px);height:100%;position:relative;cursor:zoom-in;
+  border-radius:var(--raio-lg);overflow:hidden;background:var(--sol-800);
+  box-shadow:0 20px 50px -24px rgba(42,26,18,.65);
+}
 .car-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.quartos .car-slide{background:var(--sol-100);box-shadow:var(--sombra)}
 
-/* Coluna da imagem: o quadro segue a proporcao das fotos (3:4), sem sobra */
-.car-col{display:flex;flex-direction:column;align-items:center;min-width:0}
-.car-col .car-viewport{flex:1;height:0;min-height:0;aspect-ratio:3/4;width:auto;max-width:100%}
-.car-col .car-pe{align-self:stretch;justify-content:center}
+/* Coluna da imagem: fotos em cima, controles logo abaixo */
+.car-col{display:flex;flex-direction:column;min-width:0}
+.car-col .car-viewport{flex:1;height:0;min-height:0}
 .car-pe{display:flex;align-items:center;gap:16px;height:44px;flex-shrink:0;padding-top:14px}
 /* a coluna de texto reserva a mesma altura, para a foto terminar na linha do texto */
 .gal-txt,.quartos-lista{padding-bottom:44px}
@@ -272,6 +273,7 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
 .car-btn[disabled]{opacity:.25;cursor:default;transform:none}
 
 .car-pontos{display:flex;gap:6px}
+.car-pontos{display:flex;gap:6px;flex-wrap:wrap;max-width:180px}
 .car-pontos button{width:7px;height:7px;border-radius:50%;transition:background .3s,width .3s}
 .car-contador{font-size:.79rem;font-weight:600;margin-left:auto}
 
@@ -652,6 +654,8 @@ footer a:hover{color:var(--sol-400)}
   .gal-bloco .car-col,.gal-bloco.invertido .car-col{order:2}
   .quartos-grid .car-col{order:-1}
   .gal-bloco .car-viewport,.quartos-grid .car-viewport{height:auto;aspect-ratio:3/4;flex:none;width:100%}
+  .car-slide{flex:0 0 100%}
+  .car-trilho{gap:0}
   .gal-txt,.quartos-lista{padding-bottom:0}
   .car-pe{justify-content:center;padding-top:16px;height:auto}
   :root{--gap:18px}

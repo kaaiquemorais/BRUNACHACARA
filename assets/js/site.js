@@ -165,7 +165,7 @@
     }
   }
 
-  /* ---- Carrosseis de categoria da galeria ---- */
+  /* ---- Carrosseis (1 ou 2 fotos visiveis, conforme a largura) ---- */
   $$('[data-car]').forEach(function(car){
     var trilho = $('.car-trilho', car),
         slides = $$('.car-slide', car),
@@ -173,29 +173,45 @@
         next = $('.car-next', car),
         pontos = $('.car-pontos', car),
         contador = $('.car-contador', car),
-        i = 0;
+        i = 0, passo = 0, visiveis = 1, paradas = 1;
 
-    if(slides.length < 2){
-      if(prev) prev.style.display = 'none';
-      if(next) next.style.display = 'none';
-      if(pontos) pontos.style.display = 'none';
+    if(!trilho || !slides.length) return;
+
+    function medir(){
+      var largura = slides[0].getBoundingClientRect().width;
+      var gap = parseFloat(getComputedStyle(trilho).columnGap) || 0;
+      passo = largura + gap;
+      visiveis = largura ? Math.max(1, Math.round((trilho.clientWidth + gap) / passo)) : 1;
+      paradas = Math.max(1, slides.length - visiveis + 1);
+      montaPontos();
+      ir(Math.min(i, paradas - 1));
     }
 
-    slides.forEach(function(_, n){
-      var p = document.createElement('button');
-      p.type = 'button';
-      p.setAttribute('aria-label', 'Ir para a foto ' + (n + 1));
-      p.addEventListener('click', function(){ ir(n); });
-      pontos.appendChild(p);
-    });
+    function montaPontos(){
+      if(!pontos) return;
+      if(pontos.childElementCount === paradas) return;
+      pontos.innerHTML = '';
+      for(var n = 0; n < paradas; n++){
+        (function(n){
+          var p = document.createElement('button');
+          p.type = 'button';
+          p.setAttribute('aria-label', 'Ir para a posição ' + (n + 1));
+          p.addEventListener('click', function(){ ir(n); });
+          pontos.appendChild(p);
+        })(n);
+      }
+      pontos.style.display = paradas < 2 ? 'none' : '';
+      if(prev) prev.style.display = paradas < 2 ? 'none' : '';
+      if(next) next.style.display = paradas < 2 ? 'none' : '';
+    }
 
     function ir(n){
-      i = Math.max(0, Math.min(n, slides.length - 1));
-      trilho.style.transform = 'translateX(' + (-i * 100) + '%)';
-      $$('button', pontos).forEach(function(p, n2){ p.classList.toggle('ativo', n2 === i); });
-      contador.textContent = (i + 1) + ' de ' + slides.length;
-      prev.disabled = i === 0;
-      next.disabled = i === slides.length - 1;
+      i = Math.max(0, Math.min(n, paradas - 1));
+      trilho.style.transform = 'translateX(' + (-i * passo) + 'px)';
+      if(pontos) $$('button', pontos).forEach(function(p, n2){ p.classList.toggle('ativo', n2 === i); });
+      if(contador) contador.textContent = (i + 1) + ' de ' + paradas;
+      if(prev) prev.disabled = i === 0;
+      if(next) next.disabled = i === paradas - 1;
       if(car.id){
         $$('[data-alvo="' + car.id + '"]').forEach(function(b){
           b.classList.toggle('ativo', parseInt(b.getAttribute('data-ir'), 10) === i);
@@ -204,8 +220,8 @@
     }
     car.irPara = ir;
 
-    prev.addEventListener('click', function(){ ir(i - 1); });
-    next.addEventListener('click', function(){ ir(i + 1); });
+    if(prev) prev.addEventListener('click', function(){ ir(i - 1); });
+    if(next) next.addEventListener('click', function(){ ir(i + 1); });
 
     /* arrastar com o dedo no celular */
     var x0 = null;
@@ -217,7 +233,12 @@
       x0 = null;
     }, {passive:true});
 
-    ir(0);
+    medir();
+    window.addEventListener('resize', function(){
+      clearTimeout(car._t);
+      car._t = setTimeout(medir, 150);
+    });
+    if(window.ResizeObserver) new ResizeObserver(medir).observe(car);
   });
 
   /* ---- Lista lateral controlando um carrossel ---- */
