@@ -1,0 +1,13 @@
+# Fotos originais enviadas pelo cliente (fonte, nao vao para o site)
+IMAGENS/
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Netlify
+.netlify/
+
+# Node
+node_modules/
