@@ -487,14 +487,12 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
 .faq{background:#fff}
 .faq-atalhos{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;max-width:880px;margin-inline:auto;grid-auto-rows:1fr}
 .atalho{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;
+  display:flex;align-items:center;justify-content:center;gap:12px;text-align:center;
   background:var(--sol-50);border:1px solid var(--borda);border-radius:var(--raio);padding:17px 19px;
   font-size:.88rem;font-weight:600;color:var(--sol-900);
   transition:transform .3s,box-shadow .3s,border-color .3s,background .3s;
 }
-.atalho::after{content:"";width:8px;height:8px;border-right:2px solid var(--sol-600);border-bottom:2px solid var(--sol-600);transform:rotate(-45deg);flex-shrink:0;transition:transform .3s}
 .atalho:hover{transform:translateY(-4px);box-shadow:var(--sombra);border-color:var(--sol-400);background:#fff}
-.atalho:hover::after{transform:rotate(-45deg) translate(3px,3px)}
 .faq-cta{text-align:center;margin-top:24px}
 
 .faq-item{background:#fff;border:1px solid var(--borda);border-radius:var(--raio);overflow:hidden;transition:border-color .3s,box-shadow .3s}
