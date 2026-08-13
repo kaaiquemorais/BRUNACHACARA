@@ -4,21 +4,31 @@ Contexto do projeto para retomar o trabalho sem reler o histórico da conversa.
 
 ## O que é
 
-Landing page para a **Chácara Vista Panorâmica**, casa de temporada em Socorro/SP,
-bairro Rio do Peixe. Objetivo: captar reservas via WhatsApp.
+Duas coisas, no mesmo diretório mas independentes:
 
-## Arquivos
+1. **Landing page** da **Chácara Vista Panorâmica**, casa de temporada em Socorro/SP,
+   bairro Rio do Peixe. Site estático, sem build. Objetivo: captar reservas via WhatsApp.
+2. **CRM** em `crm/`, projeto Next.js separado, com o seu próprio README e deploy.
+   Ver `crm/ARQUITETURA.md`.
+
+## Arquivos da landing page
 
 | Caminho | O que é |
 |---|---|
 | `index.html` | Landing page principal. |
 | `o-que-fazer.html` | Página com as 24 atrações de Socorro. |
+| `404.html` | Página de erro, na identidade do site. Alvo dos redirects do Netlify. |
 | `assets/css/style.css` | Toda a folha de estilo, usada pelas duas páginas. |
 | `assets/js/site.js` | Todo o JavaScript, usado pelas duas páginas. |
 | `assets/fotos/*.webp` | 32 fotos da chácara + `hero.webp`. |
 | `assets/socorro/*.webp` | 24 fotos das atrações de Socorro. |
-| `assets/img/bruna.jpg` | Foto da anfitriã. |
-| `IMAGENS/` | Fotos originais em AVIF enviadas pelo cliente. Fora do Git e do deploy. |
+| `assets/img/bruna.webp` | Foto da anfitriã. |
+| `IMAGENS/` | Material de origem. Fora do Git e bloqueado no deploy. |
+| `IMAGENS/ORIGINAIS-SITE/` | Imagens originais da hero e da anfitriã, em alta. |
+| `crm/` | Projeto do CRM. Fora do Git deste repositório. |
+
+**Toda imagem do site é WebP**, sem exceção. Original novo vai para
+`IMAGENS/ORIGINAIS-SITE/`, nunca para a raiz do projeto: a raiz é publicada.
 
 Fotos por categoria: `piscina-01..14`, `exterior-01..09`, `sala-01..03`, `cozinha-01`,
 `banheiro-01..02`, `quarto1-01`, `quarto2-01`, `quarto3-01`. Todas em WebP.
@@ -38,6 +48,10 @@ Seguir sempre, em qualquer alteração futura:
 8. **Setas do carrossel fora da imagem**, na coluna do texto, sem círculo, bem pequenas.
 9. **Responsivo obrigatório** para desktop, tablet e mobile.
 10. Paleta **quente do pôr do sol**, tirada da foto do hero.
+11. **No mobile, tudo centralizado.** Exceções deliberadas: o campo de observação do
+    formulário e a prévia da mensagem do WhatsApp, que são texto de várias linhas.
+12. **Copy em registro profissional**, sem gíria e sem coloquialismo. As regras da casa
+    ficam no infinitivo ("Tomar uma ducha antes de entrar"), não no imperativo.
 
 ## Design system
 
@@ -103,7 +117,36 @@ Fechar: X, botão Voltar, clique fora ou ESC (`data-fechar`).
 Anfitriã: **Bruna Mazeto**. WhatsApp **+55 19 99401-3782**, no código como `5519994013782` (constante `WHATS` no JS
 e nos links diretos do rodapé e do botão flutuante).
 
-## Deploy
+## Deploy da landing page
 
 - Repositório: `https://github.com/kaaiquemorais/BRUNACHACARA.git`
 - Netlify: projeto `brunachacara`, publish dir na raiz.
+
+O publish dir é a raiz, então **o Netlify sobe tudo o que está na pasta**, inclusive o
+que o `.gitignore` ignora: o `.gitignore` vale para o Git, não para o deploy. Por isso o
+`netlify.toml` tem redirects devolvendo 404 para `/IMAGENS/*` e `/CLAUDE.md`.
+
+Duas armadilhas descobertas testando contra o site publicado:
+
+1. `force = true` é obrigatório no redirect, senão um arquivo que existe de verdade
+   naquele caminho vence a regra.
+2. O splat precisa ser o **fim** do padrão. `/*.jpg` e `/*.md` não pegam nada. É por isso
+   que todo material de origem mora dentro de `IMAGENS/`, bloqueada de uma vez só.
+
+## CRM (`crm/`)
+
+Projeto Next.js 15 + TypeScript + Tailwind v4 + Supabase, independente da landing page.
+Documentação própria em `crm/ARQUITETURA.md`, `crm/README.md` e `crm/SEGURANCA.md`.
+
+- Repositório próprio, iniciado dentro de `crm/`. Fora do Git da landing page.
+- Netlify: projeto `crmbruna`, em `https://crmbruna.netlify.app`.
+
+**O build precisa rodar no Linux, pelo Netlify, não localmente.** O
+`@netlify/plugin-nextjs` gera o handler do servidor com as barras invertidas do Windows,
+e no runtime Linux `\v` e `\t` viram caracteres de escape: o deploy sobe e toda rota
+dinâmica responde 502. Deploy local com `netlify deploy --build` não funciona a partir
+do Windows.
+
+Regra de ouro do código: nunca colocar credencial real em arquivo, exemplo ou commit.
+A `SUPABASE_SECRET_KEY` ignora o RLS e é lida só em `src/lib/supabase/admin.ts`, que
+importa `server-only` para o build quebrar se alguém a arrastar para o navegador.
