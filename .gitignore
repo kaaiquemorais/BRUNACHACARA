@@ -11,3 +11,6 @@ desktop.ini
 
 # Node
 node_modules/
+
+# CRM: projeto separado, com seu proprio deploy
+crm/

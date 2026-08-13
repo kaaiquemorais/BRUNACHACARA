@@ -287,7 +287,9 @@
     faqs.forEach(function(o){ o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight = null; });
     item.classList.add('open');
     var a = item.querySelector('.faq-a');
-    a.style.maxHeight = a.scrollHeight + 'px';
+    /* scrollHeight arredonda para baixo: sem folga, a ultima linha fica cortada
+       na parte de baixo, comendo as pernas do g, do p e o cedilha. */
+    a.style.maxHeight = (a.scrollHeight + 8) + 'px';
   }
   faqs.forEach(function(item){
     item.querySelector('.faq-q').addEventListener('click', function(){
