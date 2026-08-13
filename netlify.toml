@@ -1,6 +1,53 @@
 [build]
   publish = "."
 
+# ---------------------------------------------------------------------------
+# Bloqueio do que nao e site
+#
+# O publish dir e a raiz do projeto, entao o Netlify sobe TUDO o que esta na
+# pasta, inclusive o que o .gitignore ignora: o .gitignore vale para o Git, nao
+# para o deploy. Sem estas regras, as fotos originais em IMAGENS/, as imagens
+# soltas na raiz e o CLAUDE.md ficam publicamente baixaveis.
+#
+# force = true e obrigatorio: sem ele, um arquivo que existe de verdade naquele
+# caminho vence a regra de redirecionamento.
+# ---------------------------------------------------------------------------
+
+[[redirects]]
+  from = "/IMAGENS/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/*.avif"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/*.jpeg"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# As fotos do site sao todas .webp. Um .jpg solto na raiz e material de origem.
+[[redirects]]
+  from = "/*.jpg"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/*.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# ---------------------------------------------------------------------------
+# Cache
+# ---------------------------------------------------------------------------
+
 [[headers]]
   for = "/assets/*"
   [headers.values]
