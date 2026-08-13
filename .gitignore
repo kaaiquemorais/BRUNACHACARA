@@ -14,3 +14,7 @@ node_modules/
 
 # CRM: projeto separado, com seu proprio deploy
 crm/
+
+# Imagens originais soltas na raiz: fonte da hero, nao vao para o deploy
+/*.jpeg
+/*.png
