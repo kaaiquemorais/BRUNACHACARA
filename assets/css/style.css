@@ -154,6 +154,9 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
 /* min-height em duas linhas, e nesta ordem. Ver a explicacao no bloco mobile. */
 .hero{position:relative;min-height:100vh;min-height:100lvh;display:flex;align-items:center;padding:calc(var(--nav-h) + 40px) 0 60px;overflow:hidden;background:var(--sol-900)}
 .hero-bg{position:absolute;inset:0}
+/* display:contents tira o <picture> do layout, entao a <img> continua sendo
+   filha direta de .hero-bg e as regras abaixo valem sem mudanca */
+.hero-bg picture{display:contents}
 .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 45%;animation:zoomSlow 20s ease-out forwards}
 @keyframes zoomSlow{from{transform:scale(1.08)}to{transform:scale(1)}}
 /* Degrade azul apenas do lado esquerdo: a foto fica limpa a direita */
@@ -710,9 +713,9 @@ footer a:hover{color:var(--sol-400)}
   .nav.open .burger span::before,.nav.open .burger span::after{box-shadow:none}
   .burger{display:grid}
   /* Hero centralizado, com degrade vertical para leitura */
-  /* No recorte vertical do mobile, 40% mantem o ombrelone inteiro, a piscina
-     com o jato e o vale. Mais a direita corta o ombrelone pela metade. */
-  .hero-bg img{object-position:40% 45%}
+  /* No celular entra a hero-mobile.webp, que ja vem recortada em pe com o
+     enquadramento certo. Por isso aqui e centro, e nao um deslocamento. */
+  .hero-bg img{object-position:center}
   /* Duas linhas de proposito, e nesta ordem.
      1. vh   e o retrato de seguranca. As unidades novas so existem a partir do
              Chrome 108, e navegador que nao conhece descarta a declaracao

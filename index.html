@@ -40,7 +40,12 @@
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
   <div class="hero-bg">
-    <img src="assets/fotos/hero.webp" alt="Piscina com deck de madeira e vista panorâmica para as montanhas de Socorro" fetchpriority="high">
+    <picture>
+      <!-- No celular a tela e vertical: a foto larga viraria uma fatia estreita.
+           Esta versao ja vem recortada em pe, enquadrando ombrelone e piscina. -->
+      <source media="(max-width:760px)" srcset="assets/fotos/hero-mobile.webp" width="1000" height="2000">
+      <img src="assets/fotos/hero.webp" alt="Piscina com deck de madeira e vista panorâmica para as montanhas de Socorro" width="1920" height="880" fetchpriority="high">
+    </picture>
   </div>
 
   <div class="hero-inner">
@@ -464,7 +469,7 @@
       </article>
 
       <article class="at-card rv" data-d="1">
-        <div class="ph"><img src="assets/socorro/aui-maue.webp" alt="Rafting no Rio do Peixe, em Socorro" loading="lazy"></div>
+        <div class="ph"><img src="assets/socorro/rafting.webp" alt="Bote de rafting descendo uma corredeira do Rio do Peixe, em Socorro" loading="lazy"></div>
         <div class="at-body">
           <b>Rafting no Rio do Peixe</b>
           <p>Parques de aventura com rafting, tirolesa, caiaque e quadriciclo no Rio do Peixe.</p>
