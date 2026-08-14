@@ -157,8 +157,11 @@ section{padding:clamp(56px,6.5vw,88px) 0;position:relative}
 /* display:contents tira o <picture> do layout, entao a <img> continua sendo
    filha direta de .hero-bg e as regras abaixo valem sem mudanca */
 .hero-bg picture{display:contents}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 45%;animation:zoomSlow 20s ease-out forwards}
-@keyframes zoomSlow{from{transform:scale(1.08)}to{transform:scale(1)}}
+/* Sem animacao de zoom. A que existia aqui comecava em scale(1.08) e levava
+   20 segundos para chegar em scale(1): nos primeiros segundos a foto aparecia
+   8% ampliada, ou seja, com cerca de 4% cortado de cada lado. A imagem que
+   entra e a imagem que aparece, sem corte e sem movimento. */
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 45%}
 /* Degrade azul apenas do lado esquerdo: a foto fica limpa a direita */
 .hero-bg::after{
   content:"";position:absolute;inset:0;
