@@ -709,9 +709,9 @@ footer a:hover{color:var(--sol-400)}
   .nav.open .burger span::before,.nav.open .burger span::after{box-shadow:none}
   .burger{display:grid}
   /* Hero centralizado, com degrade vertical para leitura */
-  /* No recorte vertical do mobile, 56% deixa o ombrelone na borda esquerda,
-     o vale e o sol no alto e a piscina embaixo. Mais a direita perde a piscina. */
-  .hero-bg img{object-position:56% 45%}
+  /* No recorte vertical do mobile, 40% mantem o ombrelone inteiro, a piscina
+     com o jato e o vale. Mais a direita corta o ombrelone pela metade. */
+  .hero-bg img{object-position:40% 45%}
   .hero{min-height:88svh;padding:calc(var(--nav-h) + 70px) 0 70px;justify-content:center}
   .hero-bg::after{
     background:linear-gradient(180deg,
