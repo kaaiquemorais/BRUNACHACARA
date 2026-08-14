@@ -33,12 +33,22 @@
 
 # ---------------------------------------------------------------------------
 # Cache
+#
+# Aqui estava "max-age=31536000, immutable", um ano sem revalidar. Isso so e
+# seguro quando o nome do arquivo muda a cada versao (style.a1b2c3.css). Neste
+# site os nomes sao fixos: hero.webp continua hero.webp depois de trocada.
+# Com immutable, o navegador de quem ja visitou nunca ia pedir a versao nova,
+# e a foto trocada simplesmente nao aparecia.
+#
+# max-age=0 + must-revalidate nao significa baixar tudo de novo: o navegador
+# manda um pedido condicional e o Netlify responde 304 sem corpo quando nada
+# mudou. O custo e um cabecalho, a garantia e ver sempre o conteudo atual.
 # ---------------------------------------------------------------------------
 
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/*.html"
