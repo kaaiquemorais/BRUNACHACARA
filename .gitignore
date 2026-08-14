@@ -18,3 +18,6 @@ crm/
 # Imagens originais soltas na raiz: fonte da hero, nao vao para o deploy
 /*.jpeg
 /*.png
+
+# Lock vazio que o npx do netlify-cli deixa para tras
+package-lock.json
