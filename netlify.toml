@@ -58,6 +58,16 @@
   status = 404
   force = true
 
+# O deploy.sh e removido do pacote pelo proprio script, mas um build feito pelo
+# Netlify a partir do repositorio publicaria o arquivo. Aconteceu em 4 de
+# setembro de 2026, quando o site crmbruna foi ligado a este repositorio por
+# engano. O splat nao serve aqui: "/*.sh" nao pega nada, tem que ser o nome.
+[[redirects]]
+  from = "/deploy.sh"
+  to = "/404.html"
+  status = 404
+  force = true
+
 # ---------------------------------------------------------------------------
 # Cache
 #
