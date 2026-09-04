@@ -184,6 +184,22 @@ e no runtime Linux `\v` e `\t` viram caracteres de escape: o deploy sobe e toda 
 dinâmica responde 502. Deploy local com `netlify deploy --build` não funciona a partir
 do Windows.
 
+### Estado em 4 de setembro de 2026: o CRM está fora do ar
+
+`https://crmbruna.netlify.app` responde **502 em todas as rotas**, inclusive na raiz.
+O último deploy é de 13 de agosto, marcado como `ready`, feito pelo CLI a partir do
+Windows. A prova do defeito está em `crm/.netlify/functions-internal/`: o caminho do
+Windows virou **estrutura de pastas** dentro do pacote, e o handler foi parar em
+`___netlify-server-handler/OneDrive/Documentos/SITES/CHACARA BRUNA/crm/...`. No Linux
+nada é encontrado nesse lugar, e por isso toda requisição falha.
+
+Não adianta redeployar do Windows: o defeito se repete. Para consertar, o site
+`crmbruna` precisa ser ligado a um repositório Git e passar a buildar no Netlify. Hoje
+ele não tem repositório ligado (`repo: nenhum`) e o `crm/` também não tem remoto
+configurado. Falta, nessa ordem: criar repositório **privado** no GitHub, dar push,
+ligar o repositório ao site no Netlify e conferir as variáveis de ambiente no painel,
+já que o build no Linux não enxerga o `.env.local` da máquina.
+
 Regra de ouro do código: nunca colocar credencial real em arquivo, exemplo ou commit.
 A `SUPABASE_SECRET_KEY` ignora o RLS e é lida só em `src/lib/supabase/admin.ts`, que
 importa `server-only` para o build quebrar se alguém a arrastar para o navegador.
