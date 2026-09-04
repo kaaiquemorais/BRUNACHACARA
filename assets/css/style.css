@@ -766,6 +766,17 @@ footer a:hover{color:var(--sol-400)}
   .car-pe,.car-nav,.hero-ctas,.cta-btns,.modal-acoes,.opcoes,.quartos-mais,
   .frutas,.sobre-chips,.r-topo,.reg-card h3,.f-bottom,.faq-q{justify-content:center}
   .reg-card ul,footer ul{justify-items:center}
+  footer .logo{justify-content:center}
+  /* compensa o espaco que o letter-spacing deixa a direita */
+  footer .logo small{text-indent:.22em}
+
+  /* ---- Quebras equilibradas: sem palavra solta na ultima linha ---- */
+  h1,h2,h3,h4,h5,.lead,.eyebrow,.dica,.faq-q,.cta-mini,.chip,.q-tag,.at-tag,
+  .quarto-item,.spot,li,small,figcaption,blockquote{text-wrap:balance}
+  p,.r-card p,.host p,.faq-a{text-wrap:pretty}
+  /* blocos curtos ficam melhor com as linhas do mesmo tamanho */
+  .perk p,.spot p,.at-body p,.sub,.hero-selo,.previa h4,.reg-card li{text-wrap:balance}
+
   /* textos longos de leitura seguem alinhados a esquerda */
   .previa pre,.campo input,.campo textarea{text-align:left}
 }
