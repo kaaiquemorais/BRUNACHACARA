@@ -17,6 +17,12 @@
 #    por isso todo material de origem mora dentro de IMAGENS/, que e bloqueada
 #    de uma vez pela regra abaixo. Imagem original nova vai para la, nunca
 #    para a raiz do projeto.
+#
+# ATENCAO: estas regras sao a SEGUNDA linha de defesa, nao a primeira. A
+# primeira e o script deploy.sh, que sobe so os arquivos versionados do site.
+# Nunca publicar esta pasta com "netlify deploy --prod" apontando para a raiz:
+# a raiz contem crm/, que tem credencial real do Supabase e 1,3 GB de
+# node_modules. Detalhes em CLAUDE.md, secao "Deploy da landing page".
 # ---------------------------------------------------------------------------
 
 [[redirects]]
@@ -27,6 +33,27 @@
 
 [[redirects]]
   from = "/CLAUDE.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# O CRM e outro projeto, com outro deploy. Nada dele pode sair por este site.
+[[redirects]]
+  from = "/crm/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Rede de seguranca para variavel de ambiente e dependencia, caso algum dia
+# alguem publique a raiz por engano.
+[[redirects]]
+  from = "/.env*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/node_modules/*"
   to = "/404.html"
   status = 404
   force = true

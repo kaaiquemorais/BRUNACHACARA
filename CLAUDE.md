@@ -121,10 +121,43 @@ e nos links diretos do rodapé e do botão flutuante).
 
 - Repositório: `https://github.com/kaaiquemorais/BRUNACHACARA.git`
 - Netlify: projeto `brunachacara`, publish dir na raiz.
+- O site **não** tem deploy automático pelo GitHub. O push não publica nada.
+  Publicar é sempre um passo manual e explícito.
+
+### Publicar é só isto
+
+```bash
+./deploy.sh              # produção
+./deploy.sh --previa     # URL de teste, não mexe no site no ar
+./deploy.sh --conferir   # só monta e confere o pacote, não publica
+```
+
+**Nunca rodar `netlify deploy --prod` apontando para a raiz.** O `deploy.sh` existe
+justamente para impedir isso, e a explicação está no item seguinte.
+
+### Por que não se publica a raiz
 
 O publish dir é a raiz, então **o Netlify sobe tudo o que está na pasta**, inclusive o
-que o `.gitignore` ignora: o `.gitignore` vale para o Git, não para o deploy. Por isso o
-`netlify.toml` tem redirects devolvendo 404 para `/IMAGENS/*` e `/CLAUDE.md`.
+que o `.gitignore` ignora: o `.gitignore` vale para o Git, não para o deploy. E a raiz
+hoje contém `crm/`, que tem `.env.local` com credencial real do Supabase, e `IMAGENS/`,
+com o material de origem do cliente.
+
+Isso já aconteceu. Os deploys de 13 e 14 de agosto de 2026 subiram a pasta `crm/` inteira:
+`/crm/package.json`, `/crm/src/**` e a documentação do CRM ficaram públicos nas URLs
+daqueles deploys. **Nenhuma credencial vazou**, porque o Netlify CLI pula arquivos e
+pastas que começam com ponto (`.env.local`, `.next`) e pula `node_modules`. Foi sorte da
+convenção de nome, não proteção de verdade: um arquivo de segredo sem ponto no nome teria
+ido ao ar. Verificado arquivo por arquivo em 4 de setembro de 2026.
+
+O `deploy.sh` fecha esse buraco montando o pacote com `git archive HEAD`, ou seja, só o
+que está versionado neste repositório, e abortando se encontrar `.env*`, `crm/`,
+`IMAGENS/`, `node_modules/`, `.sql`, `.pem`, `.key` ou qualquer texto parecido com
+credencial (`eyJ...`, `sb_secret_`, `service_role`).
+
+### Redirects do netlify.toml
+
+São a **segunda** linha de defesa, para o caso de alguém publicar a raiz por engano.
+Devolvem 404 para `/IMAGENS/*`, `/CLAUDE.md`, `/crm/*`, `/.env*` e `/node_modules/*`.
 
 Duas armadilhas descobertas testando contra o site publicado:
 
@@ -132,6 +165,10 @@ Duas armadilhas descobertas testando contra o site publicado:
    naquele caminho vence a regra.
 2. O splat precisa ser o **fim** do padrão. `/*.jpg` e `/*.md` não pegam nada. É por isso
    que todo material de origem mora dentro de `IMAGENS/`, bloqueada de uma vez só.
+
+Redirect **não apaga o que já foi publicado**: cada deploy antigo continua servindo o
+próprio conteúdo na URL `https://<id>--brunachacara.netlify.app`, com a configuração que
+tinha na época. Regra nova só vale do deploy seguinte em diante.
 
 ## CRM (`crm/`)
 
